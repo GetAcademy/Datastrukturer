@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" oninput="aName=this.value"/>
+    <button onclick="addFirst()">Legg til først</button>
+    <button onclick="addLast()">Legg til sist</button>
+    <div id="app"></div>
+    <script>
+        let aName;
+        // let head = null;
+        let head = {
+            value: 'Per',
+            next: {
+                value: 'Pål',
+                next: {
+                    value: 'Espen',
+                }
+            }
+        };
+        let last = head.next.next;
+
+        updateView();
+        function updateView() {
+            let node = head;
+            let html = '';
+            while (node) {
+                html += `<li>${node.value}</li>`;
+                node = node.next;
+            }
+            document.getElementById('app').innerHTML = html;
+        }
+
+        function addFirst(){
+            head = {
+                value: aName,
+                next: head,
+            };
+            updateView();
+        }
+
+        function addLast(){
+            last = last.next = {
+                value: aName
+            };
+            updateView();
+        }
+    </script>
+</body>
+
+</html>

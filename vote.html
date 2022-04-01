@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick="vote(this.innerHTML)">Per</button>
+    <button onclick="vote(this.innerHTML)">Pål</button>
+    <button onclick="vote(this.innerHTML)">Espen</button>
+
+    <div id="app"></div>
+
+    <script>
+        let votes = {};
+        function vote(aName) {
+            if(votes[aName]===undefined){
+                votes[aName] = 0;
+            }
+            votes[aName]++;
+
+            showVotes();
+        }
+
+        function showVotes() {
+            let html = '';
+            for (let aName of Object.keys(votes)) {
+                let voteCount = votes[aName];
+                html += `<li>${aName} fikk ${voteCount} stemmer</li>`;
+            }
+            document.getElementById('app').innerHTML = html;
+        }
+
+
+    </script>
+</body>
+
+</html>

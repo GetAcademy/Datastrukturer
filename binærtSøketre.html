@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" oninput="aName=this.value"/>
+    <button onclick="add()">Legg til</button>
+    <div id="app"></div>
+    <script>
+        let aName;
+        let root = {
+            value: 'Per',
+            left: {
+                value: 'Espen', 
+                right: {
+                    value: 'Gunnar'
+                }
+            },
+            right: {
+                value: 'Pål'
+            }
+        };
+
+        updateView();
+        function updateView() {
+            document.getElementById('app').innerHTML = createHtmlForOneNode(root);
+        }
+
+        function createHtmlForOneNode(node){
+            let html = '';
+            if(node.left) html += createHtmlForOneNode(node.left);
+            html += `<li>${node.value}</li>`;
+            if(node.right) html += createHtmlForOneNode(node.right);
+            return html;
+        }
+
+        function add(){
+            addToNode(root, aName);
+            updateView();
+        }
+
+        function addToNode(node, theName){
+            if(theName < node.value){
+                if(!node.left){
+                    node.left = {
+                        value: theName
+                    }
+                } else {
+                    addToNode(node.left, theName);
+                }
+            } else {
+                if(!node.right){
+                    node.right = {
+                        value: theName
+                    }
+                } else {
+                    addToNode(node.right, theName);
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>
